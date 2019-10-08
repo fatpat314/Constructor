@@ -1,4 +1,9 @@
 from flask import Flask, render_template
+from pymongo import MongoClient
+
+client = MongoClient()
+db = client.Contractor
+contractor = db.contractor
 
 
 app = Flask(__name__)
@@ -7,19 +12,24 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     """Return homepage"""
-    return render_template('home.html', msg='Music')
+    return render_template('home.html', contractor=contractor.find())
 
 @app.route('/about')
 def about():
     return render_template('about.html')
 
-@app.route('/comp')
-def comp():
-    return render_template('comp.html')
+@app.route('/trucks')
+def trucks():
+    return render_template('trucks.html')
 
-@app.route('/levona')
-def levona():
-    return render_template('levona.html')
+@app.route('/boards')
+def boards():
+    return render_template('boards.html')
+
+@app.route('/wheels')
+def wheels():
+    return render_template('wheels.html')
+
 
 
 
